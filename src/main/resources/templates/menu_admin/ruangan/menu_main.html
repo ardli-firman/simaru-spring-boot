@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section class="content" th:fragment="ruangan-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-university"></i> Data Ruangan</h3>
+                    <span style="float:right;">
+                        <a href="/admin/ruangan/add" class="btn btn-primary"> <i class="fa fa-plus"></i> Ruangan </a>
+                    </span>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-striped example">
+                        <thead>
+                            <tr class="text-center">
+                                <th width="5%">NO</th>
+                                <th>RUANGAN</th>
+                                <th>DESKRIPSI</th>
+                                <th>STATUS</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each=" ruangan,i : ${ruangans}">
+                                <td th:text="${i.count}"></td>
+                                <td th:text="${ruangan.nama_ruangan}"></td>
+                                <td th:text="${ruangan.deskripsi}"></td>
+                                <td th:text="${ruangan.status}"></td>
+                                <td>
+                                    <a
+                                        th:href="@{'/admin/ruangan/edit/' + ${ruangan.id}}"
+                                        id="btn-edit"
+                                        class="btn btn-xs bg-primary"
+                                    >
+                                        <i class="fa fa-edit"></i>Edit
+                                    </a>
+                                    <a
+                                        onclick="return confirm('Hapus ?')"
+                                        th:href="@{'/admin/ruangan/delete/' + ${ruangan.id}}"
+                                        id="btn-hapus"
+                                        class="btn btn-xs bg-red"
+                                        ><i class="fa fa-trash"></i>Hapus</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

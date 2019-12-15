@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section class="content" th:fragment="user-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-users"></i> Data Users</h3>
+                    <span style="float:right;">
+                        <a href="/admin/user/add" class="btn btn-primary"> <i class="fa fa-plus"></i> User </a>
+                    </span>
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-striped example">
+                        <thead>
+                            <tr>
+                                <th>NAMA</th>
+                                <th>EMAIL</th>
+                                <th>NO TELP</th>
+                                <th>JENIS KELAMIN</th>
+                                <th>AKSI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each=" user : ${users}">
+                                <td th:text="${user.nama}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.no_telp}"></td>
+                                <td th:text="${user.jk}"></td>
+                                <td>
+                                    <a
+                                        th:href="@{'/admin/user/edit/' + ${user.id}}"
+                                        id="btn-edit"
+                                        class="btn btn-xs bg-primary"
+                                    >
+                                        <i class="fa fa-edit"></i>Edit
+                                    </a>
+                                    <a
+                                        onclick="return confirm('Hapus ?')"
+                                        th:href="@{'/admin/user/delete/' + ${user.id}}"
+                                        id="btn-hapus"
+                                        class="btn btn-xs bg-red"
+                                        ><i class="fa fa-trash"></i>Hapus</a
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

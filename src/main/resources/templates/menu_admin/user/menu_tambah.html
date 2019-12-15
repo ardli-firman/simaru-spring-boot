@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section th:fragment="user-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-users"></i> Tambah User</h3>
+                </div>
+                <div class="box-body">
+                    <form action="" th:action="@{/admin/user/add}" method="post" th:object="${user}">
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" th:field="*{nama}" id="nama" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" th:field="*{email}" id="email" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="no_telp">No telp</label>
+                            <input type="text" th:field="*{no_telp}" id="no_telp" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="jk">Jenis kelamin</label>
+                            <select th:field="*{jk}" id="jk" class="form-control">
+                                <option value="laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" th:field="*{username}" id="username" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" th:field="*{password}" id="password" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select th:field="*{role}" id="role" class="form-control">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Tambah" class="btn btn-success" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

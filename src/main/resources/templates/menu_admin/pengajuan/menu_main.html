@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section class="content" th:fragment="pengajuan-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-university"></i> Data Pengajuan</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-striped example">
+                        <thead>
+                            <tr class="text-center">
+                                <th width="5%">NO</th>
+                                <th>HARI</th>
+                                <th>MULAI</th>
+                                <th>SELESAI</th>
+                                <th>RUANGAN</th>
+                                <th>KEPERLUAN</th>
+                                <th>PEMINJAM</th>
+                                <th>AKSI</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each=" pengajuan,i : ${pengajuans}">
+                                <td th:text="${i.count}"></td>
+                                <td th:text="${pengajuan.getDay()}"></td>
+                                <td th:text="${pengajuan.mulai()}"></td>
+                                <td th:text="${pengajuan.selesai()}"></td>
+                                <td th:text="${pengajuan.ruangan.nama_ruangan}"></td>
+                                <td th:text="${pengajuan.keperluan}"></td>
+                                <td th:text="${pengajuan.user.nama}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/pengajuan/' + ${pengajuan.id}}" class="btn btn-primary btn-xs"
+                                        >Lihat</a
+                                    >
+                                    <a
+                                        onclick="return confirm('Hapus ?')"
+                                        th:href="@{'/admin/pengajuan/delete/' + ${pengajuan.id}}"
+                                        class=" btn btn-danger btn-xs"
+                                        ><i class="fa fa-trash"></i
+                                    ></a>
+
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info btn-xs">Opsi</button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-info btn-xs dropdown-toggle"
+                                            data-toggle="dropdown"
+                                        >
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a th:href="@{'/admin/pengajuan/'+${pengajuan.id} + '/approve'}"
+                                                    >Approve</a
+                                                >
+                                            </li>
+                                            <li>
+                                                <a th:href="@{'/admin/pengajuan/'+${pengajuan.id} + '/reject'}"
+                                                    >Reject</a
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span th:text="${pengajuan.status}" class="badge red"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

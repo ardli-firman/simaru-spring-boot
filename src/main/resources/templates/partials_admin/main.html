@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+    <div th:replace="menu_admin/dashboard :: dashboard-menu" th:fragment="dashboard"></div>
+
+    <!-- User -->
+    <div th:replace="menu_admin/user/menu_main :: user-menu" th:fragment="user"></div>
+    <div th:replace="menu_admin/user/menu_tambah :: user-menu" th:fragment="user-add"></div>
+    <div th:replace="menu_admin/user/menu_edit :: user-menu" th:fragment="user-edit"></div>
+
+    <!-- Ruangan -->
+    <div th:replace="menu_admin/ruangan/menu_main :: ruangan-menu" th:fragment="ruangan"></div>
+    <div th:replace="menu_admin/ruangan/menu_tambah :: ruangan-menu" th:fragment="ruangan-add"></div>
+    <div th:replace="menu_admin/ruangan/menu_edit :: ruangan-menu" th:fragment="ruangan-edit"></div>
+
+    <!-- Pengajuan -->
+    <div th:replace="menu_admin/pengajuan/menu_main :: pengajuan-menu" th:fragment="pengajuan"></div>
+    <div th:replace="menu_admin/pengajuan/menu_lihat :: pengajuan-menu" th:fragment="pengajuan-view"></div>
+</html>

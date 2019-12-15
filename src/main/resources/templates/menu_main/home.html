@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+    <body th:fragment="home-menu" class="hold-transition skin-yellow layout-top-nav">
+        <div class="wrapper">
+            <div th:replace="partials_main/header_main :: header-main"></div>
+            <div class="content-wrapper">
+                <section class="content">
+                    <div class="box box-warning">
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Ruangan</th>
+                                            <th>Status</th>
+                                            <th>Mulai</th>
+                                            <th>Selesai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="pengajuan : ${pengajuans}">
+                                            <td>1</td>
+                                            <td th:text="${pengajuan.ruangan.nama_ruangan}"></td>
+                                            <td th:text="${pengajuan.status}"></td>
+                                            <td th:text="${pengajuan.mulai}"></td>
+                                            <td th:text="${pengajuan.selesai}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>

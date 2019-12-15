@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+    <body
+        style="/*background:url(imgstatis/back1.jpg)
+    no-repeat center center fixed; background-size: cover;
+     -webkit-background-size: cover; 
+     -moz-background-size: cover; -o-background-size: cover;*/background-color:#333;"
+        th:fragment="login-menu"
+    >
+        <div class="row">
+            <div class="login-box">
+                <div class="login-logo">
+                    <h3 style="color: #fff;">APLIKASI PEMINJAMAN RUANGAN<br /></h3>
+                </div>
+                <!-- /.login-logo -->
+                <div class="login-box-body">
+                    <p class="login-box-msg" style="font-size:100%;">
+                        Masukkan Username dan Password
+                    </p>
+                    <form th:action="${aksi}" method="post">
+                        <div class="form-group has-feedback">
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control"
+                                placeholder="Username"
+                                required=""
+                                autocomplete=""
+                                autofocus=""
+                            />
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                placeholder="Password"
+                                required=""
+                                autocomplete="off"
+                            />
+                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        </div>
+                        <button
+                            type="submit"
+                            name="submit"
+                            class="btn btn-lg btn-primary btn-block btn-flat"
+                            style="font-size: 15px;"
+                        >
+                            Login <i class="glyphicon glyphicon-log-in"></i>
+                        </button>
+                    </form>
+                    <br />
+                    <p class="text-center">
+                        <a href="">Halaman Utama</a>
+                    </p>
+                </div>
+                <!-- /.login-box-body -->
+            </div>
+        </div>
+    </body>
+</html>

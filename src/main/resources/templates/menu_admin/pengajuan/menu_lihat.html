@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section th:fragment="pengajuan-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-university"></i> Pengajuan</h3>
+                </div>
+                <div class="box-body">
+                    <form method="post" th:each="peng: ${pengajuan}">
+                        <div class="form-group">
+                            <label for="nama">Hari dipinjam</label>
+                            <input type="text" th:value="${peng.getDay()}" id="nama" class="form-control" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="nama">Nama ruangan</label>
+                            <input
+                                type="text"
+                                th:value="${peng.ruangan.nama_ruangan}"
+                                id="nama"
+                                class="form-control"
+                                disabled
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="mulai">Mulai</label>
+                            <input type="text" th:value="${peng.mulai()}" class="form-control" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="selesai">Selesai</label>
+                            <input type="text" th:value="${peng.selesai()}" class="form-control" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="keperluan">Keperluan</label>
+                            <textarea type="text" th:text="${peng.keperluan}" class="form-control" disabled></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="peminjam">Peminjam</label>
+                            <input type="text" th:value="${peng.user.nama}" class="form-control" disabled />
+                        </div>
+                        <div class="form-group">
+                            <label for="berkas">Berkas</label>
+                            <img
+                                height="350px"
+                                class="img-responsive"
+                                th:src="@{'/uploads/berkas/'+ ${peng.berkas}}"
+                                alt=""
+                            />
+                        </div>
+                    </form>
+                    <a th:href="@{/admin/pengajuan}" class="btn btn-primary">Kembali</a>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
