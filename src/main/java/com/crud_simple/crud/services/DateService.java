@@ -12,6 +12,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class DateService {
 
+    public static String getWaktu(String dateMulai, String dateSelesai) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdfO = new SimpleDateFormat("dd-MM-yyyy H:mm");
+        Date mDate, sDate;
+        String tglMulai, tglSelesai;
+
+        try {
+            mDate = (Date) sdf.parse(dateMulai);
+            tglMulai = sdfO.format(mDate);
+
+            sDate = (Date) sdf.parse(dateSelesai);
+            tglSelesai = sdfO.format(sDate);
+
+            tglMulai = tglMulai.replace("-", "/");
+            tglSelesai = tglSelesai.replace("-", "/");
+
+            return tglMulai + " - " + tglSelesai;
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static String indoDate(String date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdfO = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

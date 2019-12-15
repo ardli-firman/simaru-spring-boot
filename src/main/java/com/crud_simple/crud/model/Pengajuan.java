@@ -6,14 +6,13 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.crud_simple.crud.services.DateService;
-
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +24,7 @@ import lombok.Setter;
 public class Pengajuan {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
     @OneToOne
@@ -41,6 +40,12 @@ public class Pengajuan {
     public String keperluan;
     public String berkas;
     public String status;
+
+    public String getWaktu() {
+        String waktu = DateService.getWaktu(this.mulai, this.selesai);
+
+        return waktu;
+    }
 
     public String getDay() {
         String day = DateService.getDate(this.mulai);

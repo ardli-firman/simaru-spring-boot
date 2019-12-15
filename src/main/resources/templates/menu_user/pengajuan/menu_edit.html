@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section th:fragment="pengajuan-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-university"></i> Edit Pengajuan</h3>
+                </div>
+                <div class="box-body">
+                    <form
+                        action=""
+                        th:action="@{'/user/pengajuan/update/'+*{id}}"
+                        method="post"
+                        th:object="${pengajuan}"
+                        enctype="multipart/form-data"
+                    >
+                        <input type="hidden" name="ruangan_id" />
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>RUANGAN</label>
+                                <input
+                                    th:field="*{ruangan.nama_ruangan}"
+                                    type="text"
+                                    name="nama_ruangan"
+                                    class="form-control"
+                                    placeholder=""
+                                    readonly=""
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>WAKTU</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <input
+                                        th:value="${pengajuan.getWaktu()}"
+                                        name="waktu"
+                                        type="text"
+                                        class="form-control"
+                                        id="reservationtime"
+                                    />
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+                            <div class="form-group">
+                                <label>KEPERLUAN</label>
+                                <input th:field="*{keperluan}" name="keperluan" class="form-control" placeholder="" />
+                            </div>
+                            <div class="form-group">
+                                <label for="Berkas">Berkas</label>
+                                <img th:src="@{'/uploads/berkas/'+*{berkas}}" alt="" class="img-responsive" />
+                            </div>
+                            <div class="form-group">
+                                <label>BERKAS PENGAJUAN</label>
+                                <input type="file" name="fileUploaded" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-ok"></i> Simpan
+                            </button>
+                            <a th:href="@{/user/ruangan}" class="btn btn-default btn-sm">
+                                <i class="glyphicon glyphicon-remove"></i> Tutup
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

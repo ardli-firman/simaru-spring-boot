@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        ...
+    </head>
+
+    <body>
+        <section th:fragment="pengajuan-menu">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-external-link"></i> Data Pengajuan Saya</h3>
+                </div>
+                <div class="box-body table-responsive">
+                    <table class="table table-bordered table-striped example">
+                        <thead>
+                            <tr class="text-center">
+                                <th width="5%">NO</th>
+                                <th>HARI</th>
+                                <th>MULAI</th>
+                                <th>SELESAI</th>
+                                <th>RUANGAN</th>
+                                <th>KEPERLUAN</th>
+                                <th>AKSI</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each=" pengajuan,i : ${pengajuans}">
+                                <td th:text="${i.count}"></td>
+                                <td th:text="${pengajuan.getDay()}"></td>
+                                <td th:text="${pengajuan.mulai()}"></td>
+                                <td th:text="${pengajuan.selesai()}"></td>
+                                <td th:text="${pengajuan.ruangan.nama_ruangan}"></td>
+                                <td th:text="${pengajuan.keperluan}"></td>
+                                <td>
+                                    <a th:href="@{'/user/pengajuan/edit/'+${pengajuan.id}}" class="btn btn-xs bg-green"
+                                        ><i class="fa fa-edit"></i
+                                    ></a>
+                                    <a
+                                        onclick="return confirm('Yakin ingin membatalkan pengajuan ?')"
+                                        th:href="@{'/user/pengajuan/' + ${pengajuan.id} + '/cancel'}"
+                                        class="btn btn-xs bg-red"
+                                        >Cancel</a
+                                    >
+                                </td>
+                                <td>
+                                    <span
+                                        th:text="${pengajuan.status}"
+                                        class="badge
+                                                bg-blue"
+                                    ></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
