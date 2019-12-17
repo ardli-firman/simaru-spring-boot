@@ -2,13 +2,12 @@ package com.crud_simple.crud.controller;
 
 import java.util.Date;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 import com.crud_simple.crud.model.Pengajuan;
 import com.crud_simple.crud.model.Ruangan;
@@ -16,7 +15,6 @@ import com.crud_simple.crud.model.User;
 import com.crud_simple.crud.repo.PengajuanRepo;
 import com.crud_simple.crud.repo.RuanganRepo;
 import com.crud_simple.crud.repo.UserRepo;
-import com.crud_simple.crud.services.DateService;
 import com.crud_simple.crud.services.FileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +24,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes(names = "user_login")
 @RequestMapping("/user")
 public class UserController {
     private static final String userLayout = "user_layout";
@@ -51,9 +50,10 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/dashboard")
-    public ModelAndView showDashboardMenu() {
+    public ModelAndView showDashboardMenu(HttpSession session) {
         ModelAndView mView = new ModelAndView();
-        List<Pengajuan> pengajuans = pengajuanRepo.findAll();
+        User sessUser = (User) session.getAttribute("user_login");
+        List<Pengajuan> pengajuans = pengajuanRepo.findAllByUserId(sessUser.getId());
         mView.addObject("pengajuanCount", pengajuans.size());
         mView.addObject("pengajuans", pengajuans);
         mView.addObject("menu", "dashboard");
@@ -92,10 +92,11 @@ public class UserController {
     @PostMapping(value = "/ruangan/add-pengajuan/{id}/add")
     public String addPengajuan(@PathVariable("id") int id,
             @RequestPart(name = "fileUploaded", required = false) MultipartFile multipartFile,
-            @RequestPart(name = "waktu") String waktu, @ModelAttribute("pengajuan") Pengajuan pengajuan)
-            throws ParseException, IOException {
+            @RequestPart(name = "waktu") String waktu, @ModelAttribute("pengajuan") Pengajuan pengajuan,
+            HttpSession session) throws ParseException, IOException {
+        User sessUser = (User) session.getAttribute("user_login");
         Ruangan ruangan = ruanganRepo.findById(id);
-        User user = userRepo.findById(5);
+        User user = userRepo.findById(sessUser.getId());
 
         String[] wkt = waktu.split("-");
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -124,8 +125,9 @@ public class UserController {
      * @return
      */
     @GetMapping(value = "/pengajuan")
-    public ModelAndView showPengajuanMenu() {
-        List<Pengajuan> pengajuans = pengajuanRepo.findAll();
+    public ModelAndView showPengajuanMenu(HttpSession session) {
+        User sessUser = (User) session.getAttribute("user_login");
+        List<Pengajuan> pengajuans = pengajuanRepo.findAllByUserId(sessUser.getId());
         ModelAndView mView = new ModelAndView();
         mView.addObject("pengajuans", pengajuans);
         mView.addObject("menu", "pengajuan");

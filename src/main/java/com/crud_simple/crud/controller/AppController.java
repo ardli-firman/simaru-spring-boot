@@ -4,6 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.crud_simple.crud.model.Pengajuan;
 import com.crud_simple.crud.model.User;
 import com.crud_simple.crud.repo.MahasiswaRepo;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * AppController
@@ -52,20 +55,27 @@ public class AppController {
 
     }
 
+    @GetMapping("/logout")
+    public String doLogout(HttpSession httpSession) {
+        httpSession.removeAttribute("user_login");
+        return "redirect:/";
+    }
+
     // Login function
     @RequestMapping("/do-login")
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password)
-            throws NoSuchAlgorithmException {
+    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password,
+            HttpSession httpSession) throws NoSuchAlgorithmException {
         List<User> user = userRepo.findUserByUsername(username);
         String passwd = UtilService.getMD5(password);
-        System.out.println(passwd);
         if (user.size() < 0) {
             return "redirect:/login";
         }
         if (passwd.equals(user.get(0).getPassword())) {
             if (user.get(0).getRole().equals("user")) {
+                httpSession.setAttribute("user_login", user.get(0));
                 return "redirect:user/dashboard";
             } else if (user.get(0).getRole().equals("admin")) {
+                httpSession.setAttribute("user_login", user.get(0));
                 return "redirect:admin/dashboard";
             }
         }
@@ -73,8 +83,10 @@ public class AppController {
     }
 
     @GetMapping(value = "/test")
-    public String test(Model model) {
-        return "test";
+    public String test(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user_login");
+        System.out.print(user.getId());
+        return "home";
     }
 
     // Tested
