@@ -1,12 +1,10 @@
 package com.crud_simple.crud.controller;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.crud_simple.crud.model.Pengajuan;
 import com.crud_simple.crud.model.User;
 import com.crud_simple.crud.repo.MahasiswaRepo;
 import com.crud_simple.crud.repo.PengajuanRepo;
@@ -18,10 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * AppController
