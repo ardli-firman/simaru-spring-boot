@@ -1,5 +1,7 @@
 package com.crud_simple.crud.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -12,12 +14,17 @@ import com.crud_simple.crud.repo.RuanganRepo;
 import com.crud_simple.crud.repo.UserRepo;
 import com.crud_simple.crud.services.UtilService;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * AppController
@@ -63,7 +70,7 @@ public class AppController {
             HttpSession httpSession) throws NoSuchAlgorithmException {
         List<User> user = userRepo.findUserByUsername(username);
         String passwd = UtilService.getMD5(password);
-        if (user.size() < 0) {
+        if (user.size() == 0) {
             return "redirect:/login";
         }
         if (passwd.equals(user.get(0).getPassword())) {
@@ -102,5 +109,16 @@ public class AppController {
     public String showDaftarRuangan(Model model) {
         model.addAttribute("daftarRuangan", ruanganRepo.findAll());
         return "daftar_ruangan";
+    }
+
+    /**
+     * 
+     * Endpoint for images
+     */
+
+    @RequestMapping(value = "/images/{image}")
+    public @ResponseBody byte[] getImage(@PathVariable("image") String imageName) throws IOException {
+        InputStream in = new ClassPathResource("static/uploads/images/" + imageName).getInputStream();
+        return org.apache.commons.io.IOUtils.toByteArray(in);
     }
 }
